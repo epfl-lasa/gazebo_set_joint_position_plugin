@@ -36,6 +36,12 @@ set_joint_position_plugin::~set_joint_position_plugin()
 // Load the controller
 void set_joint_position_plugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
+
+
+    ROS_INFO("####################################");
+    ROS_INFO("INITIALIZING SET_JOINT_POSITION PLUGIN");
+
+
   // load parameters
   this->robot_namespace_ = "";
 
@@ -59,7 +65,6 @@ void set_joint_position_plugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
   }
 
   ROS_INFO_STREAM("topicName:" << this->topic_name_);
-  ROS_INFO_STREAM("Loading plugin for setting joint positions !:");
 
   this->rosnode_ = new ros::NodeHandle(this->robot_namespace_);
 
