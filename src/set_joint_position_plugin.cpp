@@ -96,15 +96,6 @@ void set_joint_position_plugin::CallBackMethod(const sensor_msgs::JointState _ms
     set_joint_state_ =  _msg;
     ROS_INFO_STREAM( "Getting a new position of size: "<< set_joint_state_.position.size() );
 
-    this->lock_.unlock();
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Update the controller
-void set_joint_position_plugin::UpdateChild()
-{
-    this->lock_.lock();
 
     for (int i = 0; i < set_joint_state_.position.size();i++){
         int j = i+1; // use next robot joint
@@ -115,6 +106,25 @@ void set_joint_position_plugin::UpdateChild()
         ROS_INFO_STREAM( "Joint: "<< j << ", name: " << this->joints_list[j]->GetName());
 #endif // if GAZEBO_MAJOR_VERSION == 2
     }
+    this->lock_.unlock();
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Update the controller
+void set_joint_position_plugin::UpdateChild()
+{
+    this->lock_.lock();
+
+//    for (int i = 0; i < set_joint_state_.position.size();i++){
+//        int j = i+1; // use next robot joint
+//#if GAZEBO_MAJOR_VERSION == 2
+//        this->joints_list[j]->SetAngle(0, set_joint_state_.position[i]);
+//#else // if GAZEBO_MAJOR_VERSION != 2
+//        this->joints_list[j]->SetPosition(0, set_joint_state_.position[i]);
+//        ROS_INFO_STREAM( "Joint: "<< j << ", name: " << this->joints_list[j]->GetName());
+//#endif // if GAZEBO_MAJOR_VERSION == 2
+//    }
 
     this->lock_.unlock();
 
